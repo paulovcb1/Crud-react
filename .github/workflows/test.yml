@@ -1,0 +1,30 @@
+name: Run Jest Tests
+
+on:
+  push:
+    branches:
+      - main  # ou a branch que você preferir
+  pull_request:
+    branches:
+      - main  # ou a branch que você preferir
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Ambiente onde o pipeline vai rodar
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Baixa o código do repositório
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Versão do Node.js que você está usando (ajuste conforme necessário)
+
+    - name: Install dependencies
+      run: |
+        npm install  # Instala as dependências do projeto
+
+    - name: Run Jest tests
+      run: |
+        npm test -- --ci --coverage  # Executa os testes com cobertura (com a flag --ci)
